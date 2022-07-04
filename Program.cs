@@ -2,11 +2,11 @@
 длина которых меньше либо равна 3 символа. Первоначальный массив можно ввести с клавиатуры, 
 либо задать на старте выполнения алгоритма.  */
 
-const int MaxRandomLength = 8; // определяет максимальную длину строки при случайном создании массива строк
+const int MaxRandomStringLength = 8; // определяет максимальную длину строки при случайном создании массива строк
 const int StringLength = 3; // отбираем строки, количество символов в которой меньше либо равно этому значению 
 const int MaxArraySize = 15; // определяет максимальное количество элементов при создании массива строк
-// const int MinChar = 97, MaxChar = 122; // для англ алфавита 
-const int MinChar = 1072, MaxChar = 1103; // для русского алфавита
+const int MinChar = 97, MaxChar = 122; // для англ алфавита 
+//const int MinChar = 1072, MaxChar = 1103; // для русского алфавита
 
 string[] FillArray()
 {
@@ -22,6 +22,8 @@ string[] FillArray()
         {
             arraySize = new Random().Next(3, MaxArraySize + 1);
             StringArrayToFill = CreateRandomStrArray(arraySize);
+            Console.WriteLine("Сгенерированный массив строк:");
+            Console.WriteLine($"{String.Join(' ', StringArrayToFill)}");
             break;
         }
         else if (enteredSymbol == "n")
@@ -41,8 +43,7 @@ string[] ManualCreateStrArray()
         Console.Clear();
         Console.Write("Введите количество элементов массива не больше {0}: ", MaxArraySize);
         arraySize = Convert.ToInt32(Console.ReadLine());
-        Console.ReadKey();
-        if (arraySize > 0 && arraySize <= MaxArraySize) 
+        if (arraySize > 0 && arraySize <= MaxArraySize)
             break;
 
     } while (true);
@@ -50,7 +51,7 @@ string[] ManualCreateStrArray()
     string[] newStringArray = new string[arraySize];
     for (int i = 0; i < arraySize; i++)
     {
-        Console.Write("Введите {0} строку:",  i+1 );
+        Console.Write("Введите {0} строку:", i + 1);
         newStringArray[i] = Console.ReadLine();
     }
     return newStringArray;
@@ -59,6 +60,7 @@ string AssembleStringFromArray(string[] arrayToCollect)
 {
     string resultString = string.Empty;
     int arrayLength = arrayToCollect.Length;
+    if (arrayLength == 0) return resultString;
     for (int i = 0; i < arrayLength; i++)
     {
         resultString += $"\"{arrayToCollect[i]}\"";
@@ -90,14 +92,13 @@ string[] PickElementsFromArray(string[] StringToSeek, int strLength)
 string CreateRandomString()
 {
     string newString = string.Empty;
-    int length = new Random().Next(1, MaxRandomLength);
+    int length = new Random().Next(1, MaxRandomStringLength+1);
     char newSymbol = '0';
     for (int i = 0; i < length; i++)
     {
         newSymbol = (char)new Random().Next(MinChar, MaxChar);
         newString += newSymbol;
     }
-
     return newString;
 }
 
@@ -111,15 +112,16 @@ string[] CreateRandomStrArray(int elementsNumber)
     return newStringArray;
 }
 
-
-//int CountOutputElements = 0;
-//int CountInputElements = 0;
-//string[] inputArray = new string[] { "привет", "я", "это", "смотрю", "ТВ" };
-
-string [] inputArray = FillArray();
+string[] inputArray = FillArray();
 string[] outputArray = PickElementsFromArray(inputArray, StringLength);
+string outputString = AssembleStringFromArray(outputArray); 
 
-string outputString = AssembleStringFromArray(outputArray);
+if (outputString == string.Empty)
+    Console.WriteLine("\nВ массиве нет строк, длина которых меньше либо равна {0} символам", StringLength);
+else
+{
+    Console.WriteLine("\nРезультатом выборки из массива строк является массив,\n в котором строки длиной меньше либо равны {0} символам", StringLength);
+    Console.WriteLine(outputString);
+} 
 
-Console.WriteLine("Результатом выборки из массива строк, является новый массив, \nстроки в котором меньше либо равны {0}", StringLength);
-Console.WriteLine(outputString);
+
