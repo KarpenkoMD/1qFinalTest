@@ -2,13 +2,13 @@
 длина которых меньше либо равна 3 символа. Первоначальный массив можно ввести с клавиатуры, 
 либо задать на старте выполнения алгоритма.  */
 
-string [] FillArray()
+/* string [] FillArray()
 {
     string [] StringArrayToFill;
 
     return StringArrayToFill;
 }
-
+ */
 string AssembleStringFromArray(string [] arrayToCollect)
 {
     string resultString = string.Empty;
@@ -18,16 +18,31 @@ string AssembleStringFromArray(string [] arrayToCollect)
 
 string [] PickElementsFromArray(string [] StringToSeek, int strLength)
 {
-    string [] resultArray;
-    
+    int resArrayCount = 0; 
+    for (int i = 0; i < StringToSeek.Length; i++)
+    {
+        if(StringToSeek[i].Length <= strLength)
+        {
+            resArrayCount++;
+        }
+    }
+    string [] resultArray = new string [resArrayCount];
+    for (int k = 0, l = 0; k < StringToSeek.Length; k++)
+    {
+        if(StringToSeek[k].Length <= strLength)
+        {
+            resultArray[l] = StringToSeek[k];
+            l++;
+        }
+    }
     return resultArray;
 }
 
-string CreateRandomString()
+/* string CreateRandomString()
 {
-    string newSrting = string.Empty;
+    string newString = string.Empty;
 
-    return newSrting;
+    return newString;
 }
 
 string [] CreateRandomStrArray (int ElementsNumber)
@@ -35,20 +50,20 @@ string [] CreateRandomStrArray (int ElementsNumber)
     string [] newStringArray;
 
     return newStringArray;
-}
+} */
 
 
 int CountOutputElements = 0;
 int CountInputElements = 0;
 string [] inputArray = new string [] {"привет","я","это","смотрю","ТВ"};
-string [] outputArray;
-string outputString = string.Empty;
+
 const int stringLength = 3; // отбираем строки, количество символов в которой меньше либо равно этому значению 
 
 Console.Clear();
 
-// inputArray = FillArray();
-outputArray = PickElementsFromArray (inputArray, stringLength);
-outputString = AssembleStringFromArray(outputArray);
+// string [] inputArray = FillArray();
+string [] outputArray = PickElementsFromArray (inputArray, stringLength);
+string outputString  = AssembleStringFromArray(outputArray);
+
 Console.WriteLine("Результатом выборки из массива строк, является новый массив, '\n' строки в котором меньше либо равны {0}", stringLength);
 Console.WriteLine(outputString);
