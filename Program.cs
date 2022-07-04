@@ -12,8 +12,14 @@
 string AssembleStringFromArray(string [] arrayToCollect)
 {
     string resultString = string.Empty;
-
-    return resultString;
+    int arrayLength = arrayToCollect.Length;
+    for (int i = 0; i < arrayLength; i++)
+    {
+        resultString += $"\"{arrayToCollect[i]}\""; 
+        if( i < arrayLength -1 ) resultString +=", ";
+    }
+    
+    return resultString +=".";
 }
 
 string [] PickElementsFromArray(string [] StringToSeek, int strLength)
@@ -65,5 +71,5 @@ Console.Clear();
 string [] outputArray = PickElementsFromArray (inputArray, stringLength);
 string outputString  = AssembleStringFromArray(outputArray);
 
-Console.WriteLine("Результатом выборки из массива строк, является новый массив, '\n' строки в котором меньше либо равны {0}", stringLength);
+Console.WriteLine("Результатом выборки из массива строк, является новый массив, \n строки в котором меньше либо равны {0}", stringLength);
 Console.WriteLine(outputString);
