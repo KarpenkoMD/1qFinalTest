@@ -89,14 +89,14 @@ string[] PickElementsFromArray(string[] StringToSeek, int strLength)
     return resultArray;
 }
 
-string CreateRandomString()
+string CreateRandomString(int minBorder, int maxBorder)
 {
     string newString = string.Empty;
     int length = new Random().Next(1, MaxRandomStringLength+1);
     char newSymbol = '0';
     for (int i = 0; i < length; i++)
     {
-        newSymbol = (char)new Random().Next(MinChar, MaxChar);
+        newSymbol = (char)new Random().Next(minBorder, maxBorder+1);
         newString += newSymbol;
     }
     return newString;
@@ -107,7 +107,7 @@ string[] CreateRandomStrArray(int elementsNumber)
     string[] newStringArray = new string[elementsNumber];
     for (int i = 0; i < elementsNumber; i++)
     {
-        newStringArray[i] = CreateRandomString();
+        newStringArray[i] = CreateRandomString(MinChar,MaxChar);
     }
     return newStringArray;
 }
